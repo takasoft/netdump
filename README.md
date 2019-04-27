@@ -2,9 +2,9 @@
 
 C program to monitor network packets on Linux 
 
-## Install
+## Build
 
-`g++ netdump.c -o netdump`
+`make`
 
 ## Useage
 

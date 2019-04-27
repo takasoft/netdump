@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #ifndef setsignal_h
 #define setsignal_h
@@ -289,21 +290,18 @@ void print_ascii(const u_char* p, u_int len, int offset)
 void smtp_print(const u_char* p, u_int len) 
 {
 	printf("SMTP\n");
-	int payload_offset = 54;
 	print_ascii(p, len, 54);
 }
 
 void pop_print(const u_char* p, u_int len) 
 {
 	printf("POP\n");
-	int payload_offset = 54;
 	print_ascii(p, len, 54);
 }
 
 void imap_print(const u_char* p, u_int len) 
 {
 	printf("IMAP\n");
-	int payload_offset = 54;
 	print_ascii(p, len, 54);
 }
 
@@ -329,7 +327,6 @@ void udp_print(const u_char* p, u_int len) {
 		num_dns_packets++;
 	}
 }
-
 
 void tcp_print(const u_char* p, u_int len) {
 	tcp_header_t* header = (struct tcp_header_struct*)(p + 34);
@@ -372,7 +369,7 @@ void tcp_print(const u_char* p, u_int len) {
 		pop_print(p, len);
 	} else if(src_port == 25 || dst_port == 25) {
 		num_smtp_packets++;
-		stmp_print(p, len);
+		smtp_print(p, len);
 	}
 }
 
@@ -518,4 +515,3 @@ void raw_print(u_char *user, const struct pcap_pkthdr *h, const u_char *p)
         default_print(p, caplen);
         putchar('\n');
 }
-
